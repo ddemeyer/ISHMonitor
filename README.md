@@ -48,7 +48,9 @@ Open a PowerShell and run.
 A simple invoke would come down to, make sure a `__ISHMonitor` folder exists in the root of your CMS folder structure.
 
         $ishSession =  New-IshSession -WsBaseUrl https://example.com/ISHWS/ -PSCredential ddemeyer
+        Enable-UDLogging -FilePath C:\GITHUB\ISHMonitor\UniversalDashboard.log -Level Debug
         .\Invoke-ISHMonitor.ps1
+        Disable-UDLogging
 		
 # Backlog & Feedback
 Any feedback is welcome. Please log a GitHub issue, make sure you submit your version number, expected and current result,...
@@ -61,6 +63,7 @@ Any feedback is welcome. Please log a GitHub issue, make sure you submit your ve
         NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL
               SCHEME: <WINDOWS_INSTALLER>  ID: <MSI>  DESCRIPTION : <Windows Installer>
         gacutil /i C:\GITHUB\ISHMonitor\NLog.dll
+* If `Universal Dashboard` returns `Unable to find type [Microsoft.AspNetCore.Http.CookieOptions]` when doing a Get-Help on New-UDGrid. It simply means that the library didn't load successfully, running a `Start-UDDashboard` did load it correctly and the ISE help worked.
 * If you get `New-IshSession : Reference to undeclared entity 'raquo'. Line 98, position 121.`, most likely you specified an existing "Web Services API" url. Make sure your url ends with an ending slash `/`.
 * If a test fails with `The communication object, System.ServiceModel.Channels.ServiceChannel, cannot be used for communication because it is in the Faulted state.`,
   it probably means you didn't provide enough (mandatory) parameters to the WCF/SVC code so passing null parameters. Typically an `-IshPassword` is missing or using an existing username.

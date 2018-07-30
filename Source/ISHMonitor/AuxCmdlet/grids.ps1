@@ -115,8 +115,15 @@ $AutoRefresh = {
     } -AutoRefresh -RefreshInterval 5 -FontColor "black" 
 }
 
+$ProcessAutoRefresh = {
+    New-UDGrid -Title "Process"  -Headers @("ProcessName", "Id") -Properties @("ProcessName", "Customers") -Endpoint {
+        Get-Process | Out-UDGridData
+    } -AutoRefresh -RefreshInterval 5 -FontColor "black" 
+}
+
 New-UDPage -Name "UD Sample - Grids" -Icon th_large -Content {
     New-UDPageHeader -Title "Grids" -Icon "th-large" -Description "Display data in a grid that can sort, filter and page." -DocLink "https://adamdriscoll.gitbooks.io/powershell-universal-dashboard/content/grids.html"
     New-UDExample -Title "Basic Grids" -Description "A basic grid that displays data." -Script $Basic
     New-UDExample -Title "Auto Refreshing Grids" -Description "A grid that auto refreshes" -Script $AutoRefresh
+    New-UDExample -Title "Auto Refreshing Process Grids" -Description "A grid that auto refreshes" -Script $ProcessAutoRefresh
 }
